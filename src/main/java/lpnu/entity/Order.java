@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Order {
     private long id;
-    private Car priceOfOrder;
+    private Car car;
+    private double totalPrice;
     private double spentTime;
     private double nightBonus;
     private User user;

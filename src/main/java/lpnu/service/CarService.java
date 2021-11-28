@@ -6,10 +6,8 @@ import java.util.List;
 
 public interface CarService {
     List<CarDTO> getAllCars();
-    CarDTO getCarById(long id);
+    CarDTO getCarById(Long id);
     CarDTO saveCar(CarDTO fuelDTO);
     CarDTO updateCar(CarDTO fuelDTO);
-    void deleteCarById(long id);
-
-
+    void deleteCarById(Long id);
 }

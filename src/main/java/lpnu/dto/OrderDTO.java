@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lpnu.entity.Car;
 import lpnu.entity.User;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -19,9 +20,10 @@ public class OrderDTO {
     @NotNull
     private Car priceOfOrder;
 
-    @NotNull
+    @Min(1)
     private double spentTime;
 
+    @Min(1)
     private double nightBonus;
 
     @NotNull
