@@ -74,7 +74,8 @@ public class OrderRepository {
 
         final Order savedOrder = getOrderById(order.getId());
 
-        savedOrder.setPriceOfOrder(order.getPriceOfOrder());
+        savedOrder.setCar(order.getCar());
+        savedOrder.setTotalPrice(order.getTotalPrice());
         savedOrder.setNightBonus(order.getNightBonus());
         savedOrder.setUser(order.getUser());
 

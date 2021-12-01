@@ -11,6 +11,7 @@ public class EmailTest {
     private EmailService emailService;
 
 
+    @GetMapping("/test")
     public void sendSimpleMessage(String to, String subject, String text){
         emailService.sendSimpleMessage("s.ilchyshyn@ukr.net", "dwagga", "AWagawga");
     }

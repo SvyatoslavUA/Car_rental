@@ -10,7 +10,8 @@ public class OrderToOrderMapperDTO {
         final Order order = new Order();
 
         order.setId(orderDTO.getId());
-        order.setPriceOfOrder(orderDTO.getPriceOfOrder());
+        order.setTotalPrice(orderDTO.getTotalPrice());
+        order.setCar(orderDTO.getCar());
         order.setUser(orderDTO.getUser());
         order.setNightBonus(orderDTO.getNightBonus());
 
@@ -21,7 +22,8 @@ public class OrderToOrderMapperDTO {
         final OrderDTO orderDTO = new OrderDTO();
 
         orderDTO.setId(order.getId());
-        orderDTO.setPriceOfOrder(orderDTO.getPriceOfOrder());
+        orderDTO.setTotalPrice(order.getTotalPrice());
+        orderDTO.setCar(order.getCar());
         orderDTO.setUser(orderDTO.getUser());
         orderDTO.setNightBonus(orderDTO.getNightBonus());
 
