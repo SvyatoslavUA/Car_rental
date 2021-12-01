@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lpnu.entity.enumeration.CarClass;
+import lpnu.entity.enumeration.CarStatus;
 import lpnu.entity.enumeration.CarTransmission;
 
 import javax.validation.constraints.*;
@@ -21,6 +22,9 @@ public class CarDTO {
     @Max(8)
     @Min(8)
     private String carNumber;
+
+    @NotNull
+    private CarStatus carStatus;
 
     @NotBlank
     @NotNull

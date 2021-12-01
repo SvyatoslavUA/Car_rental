@@ -1,5 +1,6 @@
 package lpnu.service.impl;
 
+import lpnu.entity.enumeration.CarStatus;
 import lpnu.service.CarService;
 import lpnu.dto.CarDTO;
 import lpnu.entity.Car;
@@ -20,8 +21,16 @@ public class CarServiceImpl implements CarService {
     private CarRepository carRepository;
 
     @Override
+    public List<CarDTO> getAllCarsForManager() {
+        return carRepository.getAllCars().stream()
+                .map(e -> carMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<CarDTO> getAllCars() {
         return carRepository.getAllCars().stream()
+                .filter(e -> e.getCarStatus() == CarStatus.ACTIVE)
                 .map(e -> carMapper.toDTO(e))
                 .collect(Collectors.toList());
     }

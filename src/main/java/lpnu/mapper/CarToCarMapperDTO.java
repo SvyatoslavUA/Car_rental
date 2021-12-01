@@ -16,6 +16,7 @@ public class CarToCarMapperDTO {
         car.setCarCapacity(carDTO.getCarCapacity());
         car.setClassOfCar(carDTO.getClassOfCar());
         car.setTransmission(carDTO.getTransmission());
+        car.setCarStatus(carDTO.getCarStatus());
 
         return car;
     }
@@ -26,6 +27,7 @@ public class CarToCarMapperDTO {
         carDTO.setId(car.getId());
         carDTO.setCarColor(car.getCarColor());
         carDTO.setCarNumber(car.getCarNumber());
+        carDTO.setCarStatus(car.getCarStatus());
         carDTO.setModel(car.getModel());
         carDTO.setCarCapacity(car.getCarCapacity());
         carDTO.setClassOfCar(car.getClassOfCar());

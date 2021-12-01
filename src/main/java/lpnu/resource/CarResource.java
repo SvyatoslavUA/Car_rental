@@ -15,6 +15,9 @@ public class CarResource {
     @Autowired
     private CarService carService;
 
+    @GetMapping("/car-manager")
+    public List<CarDTO> getAllCarsForManager(){return carService.getAllCarsForManager();}
+
     @GetMapping("/car")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();

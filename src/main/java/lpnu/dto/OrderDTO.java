@@ -24,6 +24,8 @@ public class OrderDTO {
     @Min(1)
     private double totalPrice;
 
+    private boolean isActive;
+
     @Min(1)
     private double spentTime;
 

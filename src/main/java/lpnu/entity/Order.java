@@ -14,4 +14,5 @@ public class Order {
     private double spentTime;
     private double nightBonus;
     private User user;
+    private boolean isActive;
 }

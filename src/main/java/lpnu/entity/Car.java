@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lpnu.entity.enumeration.CarClass;
+import lpnu.entity.enumeration.CarStatus;
 import lpnu.entity.enumeration.CarTransmission;
 
 @Data
@@ -17,4 +18,5 @@ public class Car {
     private int carCapacity;
     private CarClass classOfCar;
     private CarTransmission transmission;
+    private CarStatus carStatus;
 }

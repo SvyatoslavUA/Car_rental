@@ -14,6 +14,7 @@ public class OrderToOrderMapperDTO {
         order.setCar(orderDTO.getCar());
         order.setUser(orderDTO.getUser());
         order.setNightBonus(orderDTO.getNightBonus());
+        order.setActive(orderDTO.isActive());
 
         return order;
     }
@@ -24,8 +25,9 @@ public class OrderToOrderMapperDTO {
         orderDTO.setId(order.getId());
         orderDTO.setTotalPrice(order.getTotalPrice());
         orderDTO.setCar(order.getCar());
-        orderDTO.setUser(orderDTO.getUser());
-        orderDTO.setNightBonus(orderDTO.getNightBonus());
+        orderDTO.setUser(order.getUser());
+        orderDTO.setNightBonus(order.getNightBonus());
+        orderDTO.setActive(order.isActive());
 
         return orderDTO;
     }
