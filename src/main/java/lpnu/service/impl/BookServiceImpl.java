@@ -6,7 +6,7 @@ import lpnu.entity.Car;
 import lpnu.entity.Order;
 import lpnu.entity.User;
 import lpnu.entity.enumeration.CarStatus;
-import lpnu.mapper.OrderToOrderMapperDTO;
+import lpnu.mapper.OrderToOrderMapper;
 import lpnu.repository.CarRepository;
 import lpnu.repository.OrderRepository;
 import lpnu.repository.UserRepository;
@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private CarRepository carRepository;
     @Autowired
-    private OrderToOrderMapperDTO orderToOrderMapperDTO;
+    private OrderToOrderMapper orderToOrderMapper;
     @Autowired
     private EmailService emailService;
 
@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
 
         emailService.sendSimpleMessage(user.getEmail(), "Car is booked", "You booked: " + car.toString());
 
-        return orderToOrderMapperDTO.toDTO(order);
+        return orderToOrderMapper.toDTO(order);
     }
 
     @Override

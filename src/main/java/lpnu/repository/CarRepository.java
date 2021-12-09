@@ -2,6 +2,9 @@ package lpnu.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import lpnu.entity.Car;
+import lpnu.entity.enumeration.CarClass;
+import lpnu.entity.enumeration.CarStatus;
+import lpnu.entity.enumeration.CarTransmission;
 import lpnu.exception.ServiceException;
 import lpnu.util.JacksonUtil;
 import org.springframework.stereotype.Repository;
@@ -72,6 +75,10 @@ public class CarRepository {
 
         final Car savedUser = getCarById(car.getId());
 
+        savedUser.setId(car.getId());
+        savedUser.setCarStatus(car.getCarStatus());
+        savedUser.setClassOfCar(car.getClassOfCar());
+        savedUser.setTransmission(car.getTransmission());
         savedUser.setModel(car.getModel());
         savedUser.setCarColor(car.getCarColor());
         savedUser.setCarNumber(car.getCarNumber());

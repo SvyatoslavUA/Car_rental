@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lpnu.entity.Car;
 import lpnu.entity.User;
 
-import javax.validation.constraints.Max;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,6 +25,7 @@ public class OrderDTO {
     private double totalPrice;
 
     private boolean isActive;
+
 
     @Min(1)
     private double spentTime;

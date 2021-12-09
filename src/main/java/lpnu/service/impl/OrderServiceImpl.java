@@ -2,7 +2,7 @@ package lpnu.service.impl;
 
 import lpnu.dto.OrderDTO;
 import lpnu.entity.Order;
-import lpnu.mapper.OrderToOrderMapperDTO;
+import lpnu.mapper.OrderToOrderMapper;
 import lpnu.repository.OrderRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderServiceImpl implements OrderService{
     @Autowired
-    private OrderToOrderMapperDTO orderMapper;
+    private final OrderToOrderMapper orderMapper;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+
+    public OrderServiceImpl(final OrderRepository orderRepository, final OrderToOrderMapper orderMapper) {
+        this.orderRepository = orderRepository;
+        this.orderMapper = orderMapper;
+    }
 
     @Override
     public List<OrderDTO> getAllOrders() {

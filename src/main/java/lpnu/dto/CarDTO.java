@@ -23,9 +23,6 @@ public class CarDTO {
     @Min(8)
     private String carNumber;
 
-    @NotNull
-    private CarStatus carStatus;
-
     @NotBlank
     @NotNull
     private String carColor;
@@ -39,4 +36,7 @@ public class CarDTO {
 
     @NotNull
     private CarTransmission transmission;
+
+    @NotNull
+    private CarStatus carStatus;
 }

@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    public UserServiceImpl(final UserToUserMapperDTO userMapper, final UserRepository userRepository) {
+        this.userMapper = userMapper;
+        this.userRepository = userRepository;
+    }
+
     @Override
     public List<UserDTO> getAllUsers() {
         return userRepository.getAllUsers().stream()

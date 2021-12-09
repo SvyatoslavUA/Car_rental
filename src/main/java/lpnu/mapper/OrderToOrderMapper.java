@@ -5,7 +5,7 @@ import lpnu.entity.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderToOrderMapperDTO {
+public class OrderToOrderMapper {
     public Order toEntity(final OrderDTO orderDTO){
         final Order order = new Order();
 

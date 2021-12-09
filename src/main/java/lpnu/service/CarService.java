@@ -8,7 +8,7 @@ public interface CarService {
     List<CarDTO> getAllCarsForManager();
     List<CarDTO> getAllCars();
     CarDTO getCarById(Long id);
-    CarDTO saveCar(CarDTO fuelDTO);
-    CarDTO updateCar(CarDTO fuelDTO);
+    CarDTO saveCar(CarDTO carDTO);
+    CarDTO updateCar(CarDTO carDTO);
     void deleteCarById(Long id);
 }

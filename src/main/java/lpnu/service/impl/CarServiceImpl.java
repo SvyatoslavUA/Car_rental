@@ -1,6 +1,8 @@
 package lpnu.service.impl;
 
 import lpnu.entity.enumeration.CarStatus;
+import lpnu.mapper.UserToUserMapperDTO;
+import lpnu.repository.UserRepository;
 import lpnu.service.CarService;
 import lpnu.dto.CarDTO;
 import lpnu.entity.Car;
@@ -19,6 +21,11 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarRepository carRepository;
+
+    public CarServiceImpl(final CarToCarMapperDTO carMapper, final CarRepository carRepository) {
+        this.carMapper = carMapper;
+        this.carRepository = carRepository;
+    }
 
     @Override
     public List<CarDTO> getAllCarsForManager() {
