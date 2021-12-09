@@ -1,6 +1,5 @@
 package lpnu.service.impl;
 
-import lpnu.dto.CarDTO;
 import lpnu.dto.OrderDTO;
 import lpnu.entity.Car;
 import lpnu.entity.Order;
@@ -10,11 +9,8 @@ import lpnu.entity.enumeration.CarStatus;
 import lpnu.entity.enumeration.CarTransmission;
 import lpnu.entity.enumeration.UserRole;
 import lpnu.exception.ServiceException;
-import lpnu.mapper.CarToCarMapperDTO;
 import lpnu.mapper.OrderToOrderMapper;
-import lpnu.repository.CarRepository;
 import lpnu.repository.OrderRepository;
-import lpnu.service.CarService;
 import lpnu.service.OrderService;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -97,22 +93,26 @@ public class OrderServiceImplTest {
 
     @Test
     public void test_updateOrder_orderIsUpdate() throws Exception {
-        final CarRepository сarRepository = Mockito.mock(CarRepository.class);
-        final CarToCarMapperDTO carMapper = Mockito.mock(CarToCarMapperDTO.class);
+        final OrderRepository orderRepository = Mockito.mock(OrderRepository.class);
+        final OrderToOrderMapper orderMapper = Mockito.mock(OrderToOrderMapper.class);
 
-        final CarService сarService = new CarServiceImpl(carMapper, сarRepository);
+        final OrderService orderService = new OrderServiceImpl(orderRepository, orderMapper);
 
-        final Car car1 = new Car(1L, "t", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
-        final Car car2 = new Car(1L, "s", "",  "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
+        final User user = new User(1L, "name", "", "","", UserRole.MANAGER);
+        final Car car = new Car(1L,"","","",4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
+        final Order order1 = new Order(1L, car,150, 1.30, 2,user, true);
+        final Order order2 = new Order(1L, car,200, 1.30, 2,user, true);
+
+        order1.setTotalPrice(200);
 
 
-        when(сarRepository.updateCar(car1)).thenReturn(car2);
-        when(carMapper.toDTO(any())).thenCallRealMethod();
+            when(orderRepository.updateOrder(order1)).thenReturn(any());
 
-        final CarDTO carDTO = сarService.updateCar(carMapper.toDTO(car1));
+            final OrderDTO orderDTO = orderService.updateOrder(orderMapper.toDTO(order1));
 
-        assertEquals(car2, carDTO);
-    }
+
+            assertEquals(order2, orderMapper.toEntity(orderDTO));
+        }
 
     private List<Order> getTestOrders(){
 

@@ -75,7 +75,6 @@ public class CarRepository {
 
         final Car savedUser = getCarById(car.getId());
 
-        savedUser.setId(car.getId());
         savedUser.setCarStatus(car.getCarStatus());
         savedUser.setClassOfCar(car.getClassOfCar());
         savedUser.setTransmission(car.getTransmission());

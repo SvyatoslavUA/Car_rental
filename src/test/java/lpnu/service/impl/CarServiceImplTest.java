@@ -16,8 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 public class CarServiceImplTest {
     @Test
@@ -82,26 +82,30 @@ public class CarServiceImplTest {
         long res = carDTO.size();
 
         assertNotNull(carDTO);
+        assertNotNull(cars);
         assertEquals(expected, res);
     }
 
     @Test
-    public void test_updateCar_carIsUpdate() throws Exception {
+    public void test_updateCar_carIsChanged() throws Exception {
         final CarRepository сarRepository = Mockito.mock(CarRepository.class);
-        final CarToCarMapperDTO carMapper = Mockito.mock(CarToCarMapperDTO.class);
+       final CarToCarMapperDTO carMapper = Mockito.mock(CarToCarMapperDTO.class);
 
-        final CarService сarService = new CarServiceImpl(carMapper, сarRepository);
+       final CarService сarService = new CarServiceImpl(carMapper, сarRepository);
 
-        final Car car1 = new Car(1L, "t", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
-        final Car car2 = new Car(1L, "s", "",  "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
+       final   Car car1 = new Car(1L, "t", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
+        final Car car2 = new Car(1L, "s", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
 
 
-        when(сarRepository.updateCar(car1)).thenReturn(car2);
-        when(carMapper.toDTO(any())).thenCallRealMethod();
+        car1.setModel("s");
+
+
+        when(сarRepository.updateCar(car1)).thenReturn(any());
 
         final CarDTO carDTO = сarService.updateCar(carMapper.toDTO(car1));
 
-        assertEquals(car2, carDTO);
+
+        assertEquals(car2, carMapper.toEntity(carDTO));
     }
 
     private List<Car> getTestCars(){

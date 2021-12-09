@@ -1,25 +1,12 @@
 package lpnu.service.impl;
 
 
-import lpnu.dto.CarDTO;
-import lpnu.dto.OrderDTO;
 import lpnu.dto.UserDTO;
-import lpnu.entity.Car;
-import lpnu.entity.Order;
 import lpnu.entity.User;
-import lpnu.entity.enumeration.CarClass;
-import lpnu.entity.enumeration.CarStatus;
-import lpnu.entity.enumeration.CarTransmission;
 import lpnu.entity.enumeration.UserRole;
 import lpnu.exception.ServiceException;
-import lpnu.mapper.CarToCarMapperDTO;
-import lpnu.mapper.OrderToOrderMapper;
 import lpnu.mapper.UserToUserMapperDTO;
-import lpnu.repository.CarRepository;
-import lpnu.repository.OrderRepository;
 import lpnu.repository.UserRepository;
-import lpnu.service.CarService;
-import lpnu.service.OrderService;
 import lpnu.service.UserService;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -97,22 +84,25 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void test_updateUser_userIsUpdate() throws Exception {
-        final CarRepository сarRepository = Mockito.mock(CarRepository.class);
-        final CarToCarMapperDTO carMapper = Mockito.mock(CarToCarMapperDTO.class);
+    public void test_updateUser_userIsChanged() throws Exception {
+        final UserRepository userRepository = Mockito.mock(UserRepository.class);
+        final UserToUserMapperDTO userMapper = Mockito.mock(UserToUserMapperDTO.class);
 
-        final CarService сarService = new CarServiceImpl(carMapper, сarRepository);
-
-        final Car car1 = new Car(1L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
-
-        final CarDTO car2 = new CarDTO(1L, "", "",  "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
+        final UserService userService = new UserServiceImpl(userMapper, userRepository);
 
 
-        when(сarRepository.updateCar(car1)).thenReturn(car1);
-        when(carMapper.toDTO(any())).thenCallRealMethod();
+        final User user1 = new User(1L, "name1", "", "","", UserRole.MANAGER);
+        final User user2 = new User(1L, "name2", "", "","", UserRole.MANAGER);
+
+        user1.setName("name2");
 
 
-        assertEquals(car2, car1);
+        when(userRepository.updateUser(user1)).thenReturn(any());
+
+        final UserDTO userDTO = userService.updateUser(userMapper.toDTO(user1));
+
+
+        assertEquals(user2, userMapper.toEntity(userDTO));
     }
 
     private List<User> getTestUsers(){
