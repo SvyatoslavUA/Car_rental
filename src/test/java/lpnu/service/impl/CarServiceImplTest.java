@@ -31,7 +31,7 @@ public class CarServiceImplTest {
         final Car car = new Car(1L,"","","",4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
 
 
-        when(сarRepository.findAllById(1L)).thenReturn(car);
+        when(сarRepository.getCarById(1L)).thenCallRealMethod();;
         when(carMapper.toDTO(any())).thenCallRealMethod();
 
 
@@ -101,7 +101,7 @@ public class CarServiceImplTest {
         car1.setModel("s");
 
 
-        when(сarRepository.updateCar(car1)).thenReturn(any());
+        when(сarRepository.save(car1)).thenReturn(any());
 
         final CarDTO carDTO = сarService.updateCar(carMapper.toDTO(car1));
 

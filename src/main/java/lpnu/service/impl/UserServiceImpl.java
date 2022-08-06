@@ -5,7 +5,6 @@ import lpnu.entity.User;
 import lpnu.exception.ServiceException;
 import lpnu.mapper.UserToUserMapperDTO;
 import lpnu.repository.UserRepository;
-import lpnu.repository.UserInMemoryRepository;
 import lpnu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +20,9 @@ public class UserServiceImpl implements UserService{
     private final UserToUserMapperDTO userMapper;
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UserServiceImpl(final UserToUserMapperDTO userMapper, final UserInMemoryRepository userInMemoryRepository) {
+    public UserServiceImpl(final UserToUserMapperDTO userMapper, final UserRepository userRepository) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
     }
