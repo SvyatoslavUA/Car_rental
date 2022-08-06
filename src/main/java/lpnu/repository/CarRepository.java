@@ -1,93 +1,34 @@
 package lpnu.repository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import lpnu.entity.Car;
 import lpnu.entity.enumeration.CarClass;
 import lpnu.entity.enumeration.CarStatus;
 import lpnu.entity.enumeration.CarTransmission;
-import lpnu.exception.ServiceException;
-import lpnu.util.JacksonUtil;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
-public class CarRepository {
-    private List<Car> carList;
+public interface CarRepository extends JpaRepository<Car, Long> {
 
-    private long id = 1;
+    @Query("select ud from car")
+    List<Car> getAllCars();
+
+    @Query("select ud from car where ud.carID=:carID")
+    List<Car> getCarById(Long carID);
+
+    @Modifying
+    @Query(value = "INSERT INTO car(carID, model, carNumber, carColor, carCapacity, classOfCar, transmission, carStatus)"
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)", nativeQuery = true)
+    void addCar(Long carID, String model, String carNumber, String carColor, Integer carCapacity,
+                             CarClass classOfCar, CarTransmission transmission, CarStatus carStatus);
 
 
-    @PostConstruct
-    public void init(){
-
-        final Path file = Paths.get("car.txt");
-        try {
-            final String savedCarsAsString = Files.readString(file, StandardCharsets.UTF_16);
-            carList = JacksonUtil.deserialize(savedCarsAsString, new TypeReference<>() {
-            });
-        } catch (final Exception e){
-            System.out.println("We have an issue");
-            carList = new ArrayList<>();
-        }
-
-    }
-
-    @PreDestroy
-    public void preDestroy(){
-        final Path file = Paths.get("car.txt");
-        try {
-            Files.writeString(file, JacksonUtil.serialize(carList), StandardCharsets.UTF_16);
-        } catch (final Exception e){
-            System.out.println("We have an issue");
-        }
-    }
-
-    public List<Car> getAllCars() {
-        return new ArrayList<>(carList);
-    }
-
-    public Car getCarById(final Long id) {
-        return carList.stream()
-                .filter(e -> e.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new ServiceException(400, "car with id {" + id + "} not found"));
-    }
-
-    public Car saveCar(final Car car) {
-        car.setId(id);
-
-        ++id;
-
-        carList.add(car);
-        return car;
-    }
-
-    public Car updateCar(final Car car) {
-
-        final Car savedUser = getCarById(car.getId());
-
-        savedUser.setCarStatus(car.getCarStatus());
-        savedUser.setClassOfCar(car.getClassOfCar());
-        savedUser.setTransmission(car.getTransmission());
-        savedUser.setModel(car.getModel());
-        savedUser.setCarColor(car.getCarColor());
-        savedUser.setCarNumber(car.getCarNumber());
-
-        return savedUser;
-    }
-
-    public void deleteUserById(final Long id) {
-        carList = carList.stream()
-                .filter(e -> !e.getId().equals(id))
-                .collect(Collectors.toList());
-    }
+    @Modifying
+    @Query("DELETE FROM car WHERE carID=?1")
+    void deleteCar(Long carID);
 }

@@ -6,7 +6,7 @@ import lpnu.entity.User;
 import lpnu.entity.enumeration.UserRole;
 import lpnu.exception.ServiceException;
 import lpnu.mapper.UserToUserMapperDTO;
-import lpnu.repository.UserRepository;
+import lpnu.repository.UserInMemoryRepository;
 import lpnu.service.UserService;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -21,15 +21,15 @@ import static org.mockito.Mockito.when;
 public class UserServiceImplTest {
     @Test
     public void test_getUserById_userExist() throws Exception{
-        final UserRepository userRepository = Mockito.mock(UserRepository.class);
+        final UserInMemoryRepository userInMemoryRepository = Mockito.mock(UserInMemoryRepository.class);
         final UserToUserMapperDTO userMapper = Mockito.mock(UserToUserMapperDTO.class);
 
-        final UserService userService = new UserServiceImpl(userMapper, userRepository);
+        final UserService userService = new UserServiceImpl(userMapper, userInMemoryRepository);
 
 
         final User user = new User(1L, "name", "", "","", UserRole.MANAGER);
 
-        when(userRepository.getUserById(1L)).thenReturn(user);
+        when(userInMemoryRepository.getUserById(1L)).thenReturn(user);
         when(userMapper.toDTO(any())).thenCallRealMethod();
 
 
@@ -42,13 +42,13 @@ public class UserServiceImplTest {
 
     @Test
     public void test_getUserById_userNotExist() throws Exception{
-        final UserRepository userRepository = Mockito.mock(UserRepository.class);
+        final UserInMemoryRepository userInMemoryRepository = Mockito.mock(UserInMemoryRepository.class);
         final UserToUserMapperDTO userMapper = Mockito.mock(UserToUserMapperDTO.class);
 
 
-        final UserService userService = new UserServiceImpl(userMapper, userRepository);
+        final UserService userService = new UserServiceImpl(userMapper, userInMemoryRepository);
 
-        when(userRepository.getUserById(1L)).thenThrow( new ServiceException(400, "some exception"));
+        when(userInMemoryRepository.getUserById(1L)).thenThrow( new ServiceException(400, "some exception"));
         when(userMapper.toDTO(any())).thenCallRealMethod();
 
 
@@ -62,15 +62,15 @@ public class UserServiceImplTest {
 
     @Test
     public void test_getOrders_doesAllUsersExist() throws Exception{
-        final UserRepository userRepository = Mockito.mock(UserRepository.class);
+        final UserInMemoryRepository userInMemoryRepository = Mockito.mock(UserInMemoryRepository.class);
         final UserToUserMapperDTO userMapper = Mockito.mock(UserToUserMapperDTO.class);
 
-        final UserService userService = new UserServiceImpl(userMapper, userRepository);
+        final UserService userService = new UserServiceImpl(userMapper, userInMemoryRepository);
 
 
         final List<User> users = getTestUsers();
 
-        when(userRepository.getAllUsers()).thenReturn(users);
+        when(userInMemoryRepository.getAllUsers()).thenReturn(users);
         when(userMapper.toDTO(any())).thenCallRealMethod();
 
         final List<UserDTO> userDTO = userService.getAllUsers();
@@ -85,10 +85,10 @@ public class UserServiceImplTest {
 
     @Test
     public void test_updateUser_userIsChanged() throws Exception {
-        final UserRepository userRepository = Mockito.mock(UserRepository.class);
+        final UserInMemoryRepository userInMemoryRepository = Mockito.mock(UserInMemoryRepository.class);
         final UserToUserMapperDTO userMapper = Mockito.mock(UserToUserMapperDTO.class);
 
-        final UserService userService = new UserServiceImpl(userMapper, userRepository);
+        final UserService userService = new UserServiceImpl(userMapper, userInMemoryRepository);
 
 
         final User user1 = new User(1L, "name1", "", "","", UserRole.MANAGER);
@@ -97,7 +97,7 @@ public class UserServiceImplTest {
         user1.setName("name2");
 
 
-        when(userRepository.updateUser(user1)).thenReturn(any());
+        when(userInMemoryRepository.updateUser(user1)).thenReturn(any());
 
         final UserDTO userDTO = userService.updateUser(userMapper.toDTO(user1));
 

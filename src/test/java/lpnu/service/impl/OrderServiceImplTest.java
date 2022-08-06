@@ -10,7 +10,7 @@ import lpnu.entity.enumeration.CarTransmission;
 import lpnu.entity.enumeration.UserRole;
 import lpnu.exception.ServiceException;
 import lpnu.mapper.OrderToOrderMapper;
-import lpnu.repository.OrderRepository;
+import lpnu.repository.OrderInMemoryRepository;
 import lpnu.service.OrderService;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -26,16 +26,16 @@ import static org.mockito.Mockito.when;
 public class OrderServiceImplTest {
     @Test
     public void test_getOrderById_orderExist() throws Exception{
-        final OrderRepository orderRepository = Mockito.mock(OrderRepository.class);
+        final OrderInMemoryRepository orderInMemoryRepository = Mockito.mock(OrderInMemoryRepository.class);
         final OrderToOrderMapper orderMapper = Mockito.mock(OrderToOrderMapper.class);
 
-        final OrderService orderService = new OrderServiceImpl(orderRepository, orderMapper);
+        final OrderService orderService = new OrderServiceImpl(orderInMemoryRepository, orderMapper);
 
         final User user = new User(1L, "name", "", "","", UserRole.MANAGER);
         final Car car = new Car(1L,"","","",4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
         final Order order = new Order(1L, car,150, 1.30, 2,user, true);
 
-        when(orderRepository.getOrderById(1L)).thenReturn(order);
+        when(orderInMemoryRepository.getOrderById(1L)).thenReturn(order);
         when(orderMapper.toDTO(any())).thenCallRealMethod();
 
 
@@ -48,16 +48,16 @@ public class OrderServiceImplTest {
 
     @Test
     public void test_getOrderById_orderNotExist() throws Exception{
-        final OrderRepository orderRepository = Mockito.mock(OrderRepository.class);
+        final OrderInMemoryRepository orderInMemoryRepository = Mockito.mock(OrderInMemoryRepository.class);
         final OrderToOrderMapper orderMapper = Mockito.mock(OrderToOrderMapper.class);
 
-        final OrderService orderService = new OrderServiceImpl(orderRepository, orderMapper);
+        final OrderService orderService = new OrderServiceImpl(orderInMemoryRepository, orderMapper);
 
         final User user = new User(1L, "name", "", "","", UserRole.MANAGER);
         final Car car = new Car(1L,"","","",4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
         final Order order = new Order(1L, car,150, 1.30, 2,user, true);
 
-        when(orderRepository.getOrderById(1L)).thenThrow( new ServiceException(400, "some exception"));
+        when(orderInMemoryRepository.getOrderById(1L)).thenThrow( new ServiceException(400, "some exception"));
         when(orderMapper.toDTO(any())).thenCallRealMethod();
 
 
@@ -71,14 +71,14 @@ public class OrderServiceImplTest {
 
     @Test
     public void test_getOrders_doesAllOrdersExist() throws Exception{
-        final OrderRepository orderRepository = Mockito.mock(OrderRepository.class);
+        final OrderInMemoryRepository orderInMemoryRepository = Mockito.mock(OrderInMemoryRepository.class);
         final OrderToOrderMapper orderMapper = Mockito.mock(OrderToOrderMapper.class);
 
-        final OrderService orderService = new OrderServiceImpl(orderRepository, orderMapper);
+        final OrderService orderService = new OrderServiceImpl(orderInMemoryRepository, orderMapper);
 
         final List<Order> orders = getTestOrders();
 
-        when(orderRepository.getAllOrders()).thenReturn(orders);
+        when(orderInMemoryRepository.getAllOrders()).thenReturn(orders);
         when(orderMapper.toDTO(any())).thenCallRealMethod();
 
         final List<OrderDTO> carDTO = orderService.getAllOrders();
@@ -93,10 +93,10 @@ public class OrderServiceImplTest {
 
     @Test
     public void test_updateOrder_orderIsUpdate() throws Exception {
-        final OrderRepository orderRepository = Mockito.mock(OrderRepository.class);
+        final OrderInMemoryRepository orderInMemoryRepository = Mockito.mock(OrderInMemoryRepository.class);
         final OrderToOrderMapper orderMapper = Mockito.mock(OrderToOrderMapper.class);
 
-        final OrderService orderService = new OrderServiceImpl(orderRepository, orderMapper);
+        final OrderService orderService = new OrderServiceImpl(orderInMemoryRepository, orderMapper);
 
         final User user = new User(1L, "name", "", "","", UserRole.MANAGER);
         final Car car = new Car(1L,"","","",4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
@@ -106,7 +106,7 @@ public class OrderServiceImplTest {
         order1.setTotalPrice(200);
 
 
-            when(orderRepository.updateOrder(order1)).thenReturn(any());
+            when(orderInMemoryRepository.updateOrder(order1)).thenReturn(any());
 
             final OrderDTO orderDTO = orderService.updateOrder(orderMapper.toDTO(order1));
 

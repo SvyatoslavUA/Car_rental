@@ -8,6 +8,7 @@ import lpnu.entity.enumeration.CarTransmission;
 import lpnu.exception.ServiceException;
 import lpnu.mapper.CarToCarMapperDTO;
 import lpnu.repository.CarRepository;
+import lpnu.repository.CarRepository;
 import lpnu.service.CarService;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -30,7 +31,7 @@ public class CarServiceImplTest {
         final Car car = new Car(1L,"","","",4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
 
 
-        when(сarRepository.getCarById(1L)).thenReturn(car);
+        when(сarRepository.findAllById(1L)).thenReturn(car);
         when(carMapper.toDTO(any())).thenCallRealMethod();
 
 
