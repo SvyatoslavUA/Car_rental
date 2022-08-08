@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Entity(name = "order")
 public class Order {
     @Id
-    @Column(name = "orderID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "car")
+    @ManyToOne
     private Car car;
 
     @Column(name = "totalPrice")
@@ -28,7 +28,7 @@ public class Order {
     @Column(name = "nightBonus")
     private double nightBonus;
 
-    @Column(name = "user")
+    @ManyToOne
     private User user;
 
     @Column(name = "isActive")

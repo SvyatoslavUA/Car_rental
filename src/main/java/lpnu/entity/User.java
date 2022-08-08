@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lpnu.entity.enumeration.UserRole;
 import javax.persistence.*;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,7 +14,6 @@ import javax.persistence.*;
 @Entity(name = "user")
 public class User {
     @Id
-    @Column(name = "userID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -30,4 +31,7 @@ public class User {
 
     @Column(name = "userRole")
     private UserRole userRole;
+
+    @OneToMany(mappedBy="user")
+    private List<Order> orders;
 }

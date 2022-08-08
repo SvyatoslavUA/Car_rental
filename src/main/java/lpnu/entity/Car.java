@@ -8,6 +8,7 @@ import lpnu.entity.enumeration.CarStatus;
 import lpnu.entity.enumeration.CarTransmission;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +17,7 @@ import javax.persistence.*;
 @Entity(name = "car")
 public class Car {
     @Id
-    @Column(name = "carID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -40,4 +41,7 @@ public class Car {
 
     @Column(name = "carStatus")
     private CarStatus carStatus;
+
+    @OneToMany(mappedBy="car")
+    private List<Order> orders;
 }
