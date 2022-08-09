@@ -16,7 +16,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Car car;
 
     @Column(name = "total_price")
@@ -28,7 +28,7 @@ public class Order {
     @Column(name = "night_bonus")
     private double nightBonus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Column(name = "is_active")

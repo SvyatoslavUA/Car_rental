@@ -33,12 +33,15 @@ public class Car {
     @Column(name = "car_capacity")
     private int carCapacity;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "class_of_car")
     private CarClass classOfCar;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "transmission")
     private CarTransmission transmission;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "car_status")
     private CarStatus carStatus;
 

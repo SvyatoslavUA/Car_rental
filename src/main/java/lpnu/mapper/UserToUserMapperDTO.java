@@ -4,6 +4,8 @@ import lpnu.dto.UserDTO;
 import lpnu.entity.User;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class UserToUserMapperDTO {
     public User toEntity(final UserDTO userDTO){
@@ -13,6 +15,7 @@ public class UserToUserMapperDTO {
         user.setEmail(userDTO.getEmail());
         user.setName(userDTO.getName());
         user.setSurname(userDTO.getSurname());
+
 
         return user;
     }
@@ -24,7 +27,7 @@ public class UserToUserMapperDTO {
         userDTO.setEmail(user.getEmail());
         userDTO.setName(user.getName());
         userDTO.setSurname(user.getSurname());
-
+        userDTO.setOrderIds(user.getOrders().stream().map(e -> e.getId()).collect(Collectors.toList()));
         return userDTO;
     }
 }

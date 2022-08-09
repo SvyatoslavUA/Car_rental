@@ -29,6 +29,7 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
     private UserRole userRole;
 

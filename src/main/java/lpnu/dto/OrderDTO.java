@@ -19,7 +19,7 @@ public class OrderDTO {
     private Long id;
 
     @NotNull
-    private Car car;
+    private CarDTO car;
 
     @Min(1)
     private double totalPrice;
@@ -35,5 +35,5 @@ public class OrderDTO {
 
     @NotNull
     @NotBlank
-    private User user;
+    private UserDTO user;
 }

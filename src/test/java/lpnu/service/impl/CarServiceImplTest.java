@@ -1,7 +1,9 @@
 package lpnu.service.impl;
 
 import lpnu.dto.CarDTO;
+import lpnu.dto.OrderDTO;
 import lpnu.entity.Car;
+import lpnu.entity.Order;
 import lpnu.entity.enumeration.CarClass;
 import lpnu.entity.enumeration.CarStatus;
 import lpnu.entity.enumeration.CarTransmission;
@@ -13,6 +15,7 @@ import lpnu.service.CarService;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,11 +30,12 @@ public class CarServiceImplTest {
         final CarToCarMapperDTO carMapper = Mockito.mock(CarToCarMapperDTO.class);
 
         final CarService сarService = new CarServiceImpl(carMapper, сarRepository);
+        final List<Order> orders = new ArrayList<>();
 
-        final Car car = new Car(1L,"","","",4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
+        final Car car = new Car(1L,"","","",4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE, orders);
 
 
-        when(сarRepository.getCarById(1L)).thenCallRealMethod();;
+        when(сarRepository.findById(1L)).thenCallRealMethod();;
         when(carMapper.toDTO(any())).thenCallRealMethod();
 
 
@@ -48,11 +52,11 @@ public class CarServiceImplTest {
         final CarToCarMapperDTO carMapper = Mockito.mock(CarToCarMapperDTO.class);
 
         final CarService сarService = new CarServiceImpl(carMapper, сarRepository);
+        final List<Order> orders = new ArrayList<>();
+        final Car car = new Car(1L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE, orders);
 
-        final Car car = new Car(1L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
 
-
-        when(сarRepository.getCarById(1L)).thenThrow(new ServiceException(400, "some exception"));
+        when(сarRepository.findById(1L)).thenThrow(new ServiceException(400, "some exception"));
         when(carMapper.toDTO(any())).thenCallRealMethod();
 
 
@@ -73,7 +77,7 @@ public class CarServiceImplTest {
 
         final List<Car> cars = getTestCars();
 
-        when(сarRepository.getAllCars()).thenReturn(cars);
+        when(сarRepository.findAll()).thenReturn(cars);
         when(carMapper.toDTO(any())).thenCallRealMethod();
 
         final List<CarDTO> carDTO = сarService.getAllCarsForManager();
@@ -93,9 +97,9 @@ public class CarServiceImplTest {
        final CarToCarMapperDTO carMapper = Mockito.mock(CarToCarMapperDTO.class);
 
        final CarService сarService = new CarServiceImpl(carMapper, сarRepository);
-
-       final   Car car1 = new Car(1L, "t", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
-        final Car car2 = new Car(1L, "s", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
+        final List<Order> orders = new ArrayList<>();
+       final   Car car1 = new Car(1L, "t", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE, orders);
+        final Car car2 = new Car(1L, "s", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE, orders);
 
 
         car1.setModel("s");
@@ -110,10 +114,11 @@ public class CarServiceImplTest {
     }
 
     private List<Car> getTestCars(){
-        final Car car1 = new Car(1L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
-        final Car car2 = new Car(2L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
-        final Car car3 = new Car(3L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
-        final Car car4 = new Car(4L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE);
+        final List<Order> orders = new ArrayList<>();
+        final Car car1 = new Car(1L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE, orders);
+        final Car car2 = new Car(2L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE, orders);
+        final Car car3 = new Car(3L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE, orders);
+        final Car car4 = new Car(4L, "", "", "", 4, CarClass.COMFORT, CarTransmission.MANUAL, CarStatus.ACTIVE, orders);
 
         return Arrays.asList(car1, car2, car3, car4);
     }

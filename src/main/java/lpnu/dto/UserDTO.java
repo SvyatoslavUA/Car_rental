@@ -35,5 +35,5 @@ public class UserDTO {
 
     @NotNull
     @NotBlank
-    private List<Order> orders;
+    private List<Long> orderIds;
 }
