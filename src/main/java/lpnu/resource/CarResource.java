@@ -15,10 +15,10 @@ public class CarResource {
     @Autowired
     private CarService carService;
 
-    @GetMapping("/car-manager")
+    @GetMapping("/cars-manager")
     public List<CarDTO> getAllCarsForManager(){return carService.getAllCarsForManager();}
 
-    @GetMapping("/car")
+    @GetMapping("/cars")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
     }

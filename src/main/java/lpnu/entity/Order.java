@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order")
-@Entity(name = "order")
+@Table(name = "orders")
+@Entity(name = "orders")
 public class Order {
     @Id
     @Column(name = "ID")
@@ -19,18 +19,18 @@ public class Order {
     @ManyToOne
     private Car car;
 
-    @Column(name = "totalPrice")
+    @Column(name = "total_price")
     private double totalPrice;
 
-    @Column(name = "spentTime")
+    @Column(name = "spent_time")
     private double spentTime;
 
-    @Column(name = "nightBonus")
+    @Column(name = "night_bonus")
     private double nightBonus;
 
     @ManyToOne
     private User user;
 
-    @Column(name = "isActive")
+    @Column(name = "is_active")
     private boolean isActive;
 }

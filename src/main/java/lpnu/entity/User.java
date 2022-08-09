@@ -10,8 +10,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
-@Entity(name = "user")
+@Table(name = "users")
+@Entity(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "userRole")
+    @Column(name = "user_role")
     private UserRole userRole;
 
     @OneToMany(mappedBy="user")
