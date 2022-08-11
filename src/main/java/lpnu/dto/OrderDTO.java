@@ -3,8 +3,6 @@ package lpnu.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lpnu.entity.Car;
-import lpnu.entity.User;
 
 
 import javax.validation.constraints.Min;

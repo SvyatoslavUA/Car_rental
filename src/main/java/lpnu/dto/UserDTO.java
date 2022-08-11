@@ -3,7 +3,6 @@ package lpnu.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lpnu.entity.Order;
 import lpnu.entity.enumeration.UserRole;
 
 import javax.validation.constraints.Email;
@@ -27,10 +26,12 @@ public class UserDTO {
     @NotBlank
     private String email;
 
+    @NotBlank
     @NotNull
     private String phoneNumber;
 
     @NotNull
+    @NotBlank
     private UserRole userRole;
 
     @NotNull
